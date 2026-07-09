@@ -13,10 +13,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Install System Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docutils gettext jni-compiler libffi-dev libssl-dev autoconf libtool pkg-config zlib1g-dev lld cmake
+
     - name: Build APK with Buildozer
       uses: digreatbrian/buildozer-action@v2
       with:
-        python-version: 3.10
+        python-version: "3.10"
         buildozer-cmd: buildozer -v android debug
 
     - name: Upload APK Artifact
