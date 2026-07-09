@@ -22,7 +22,18 @@ jobs:
     - name: Install System Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y docutils gettext libffi-dev libssl-dev autoconf libtool pkg-config zlib1g-dev lld cmake
+        sudo apt-get install -y --no-install-recommends \
+          docutils \
+          gettext \
+          libffi-dev \
+          libssl-dev \
+          autoconf \
+          libtool \
+          pkg-config \
+          zlib1g-dev \
+          lld \
+          cmake
+      continue-on-error: true
 
     - name: Build APK with Buildozer
       uses: digreatbrian/buildozer-action@v2
@@ -32,6 +43,8 @@ jobs:
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
+      if: success()
       with:
         name: ArenMath-APK
         path: bin/*.apk
+        retention-days: 30
