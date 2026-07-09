@@ -33,6 +33,7 @@ jobs:
           zlib1g-dev \
           lld \
           cmake \
+          libtinfo-dev \
           libtinfo6 \
           ncurses-base
 
