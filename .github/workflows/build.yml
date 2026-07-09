@@ -22,20 +22,11 @@ jobs:
     - name: Install System Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y --no-install-recommends \
-          docutils \
-          gettext \
-          libffi-dev \
-          libssl-dev \
-          autoconf \
-          libtool \
-          pkg-config \
-          zlib1g-dev \
-          lld \
-          cmake \
-          libtinfo-dev \
-          libtinfo6 \
-          ncurses-base
+        sudo apt-get install -y docutils gettext libffi-dev libssl-dev autoconf libtool pkg-config zlib1g-dev lld cmake libtinfo6 ncurses-base
+        
+        # Manually install libtinfo5 for Ubuntu 24.04 compatibility
+        wget http://azure.archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.4-2_amd64.deb
+        sudo dpkg -i libtinfo5_6.4-2_amd64.deb
 
     - name: Build APK with Buildozer
       uses: digreatbrian/buildozer-action@v2
@@ -45,8 +36,6 @@ jobs:
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
-      if: success()
       with:
         name: ArenMath-APK
         path: bin/*.apk
-        retention-days: 30
