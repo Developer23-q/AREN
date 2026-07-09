@@ -22,7 +22,7 @@ jobs:
     - name: Install System Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y docutils gettext jni-compiler libffi-dev libssl-dev autoconf libtool pkg-config zlib1g-dev lld cmake
+        sudo apt-get install -y docutils gettext libffi-dev libssl-dev autoconf libtool pkg-config zlib1g-dev lld cmake
 
     - name: Build APK with Buildozer
       uses: digreatbrian/buildozer-action@v2
